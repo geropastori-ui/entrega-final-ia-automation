@@ -42,4 +42,4 @@ Se usó **Groq** (openai/gpt-oss-120b) por recomendación de los docentes y porq
 
 ## Limitaciones
 
-El destinatario del correo está fijo en el módulo; el cambio a "Aprobado" es manual; el plan gratuito de Groq tiene límite de tokens por minuto; la tasa de error se calcula sobre pocas piezas de prueba.
+El único canal de salida es Gmail: no se usaron Slack ni WhatsApp porque la integración con Twilio dio error y se simplificó con Gmail. El destinatario del correo es la casilla del autor, puesta para las pruebas; en producción sería una variable con el correo de quien envía la consulta; el cambio a "Aprobado" es manual; el plan gratuito de Groq tiene límite de tokens por minuto; la tasa de error se calcula sobre pocas piezas de prueba.
