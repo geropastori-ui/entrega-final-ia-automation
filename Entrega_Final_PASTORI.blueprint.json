@@ -1,0 +1,2576 @@
+{
+    "name": "Entrega Final PASTORI",
+    "flow": [
+        {
+            "id": 1,
+            "module": "airtable:TriggerWatchRecords",
+            "version": 3,
+            "parameters": {
+                "base": "applR5wde8nycBbLW",
+                "table": "tblT91ySHZHm7CbI8",
+                "config": {
+                    "labelField": "Idea Semilla",
+                    "triggerField": "Última ejecución"
+                },
+                "formula": "",
+                "maxRecords": 1000,
+                "__IMTCONN__": 11313641,
+                "useColumnId": false
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -373,
+                    "y": 143,
+                    "name": "Carga de Ideas Semilla"
+                },
+                "restore": {
+                    "parameters": {
+                        "base": {
+                            "label": "Centro de Comando"
+                        },
+                        "table": {
+                            "label": "Centro de control"
+                        },
+                        "config": {
+                            "nested": {
+                                "labelField": {
+                                    "label": "Idea Semilla"
+                                },
+                                "triggerField": {
+                                    "label": "Última ejecución"
+                                }
+                            }
+                        },
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable3"
+                            },
+                            "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    },
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use Column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "config",
+                        "spec": [
+                            {
+                                "name": "triggerField",
+                                "type": "select",
+                                "label": "Trigger field",
+                                "required": true
+                            },
+                            {
+                                "name": "triggerField",
+                                "type": "hidden"
+                            },
+                            {
+                                "name": "labelField",
+                                "type": "select",
+                                "label": "Label field",
+                                "required": true
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Trigger configuration"
+                    },
+                    {
+                        "name": "maxRecords",
+                        "type": "integer",
+                        "label": "Limit",
+                        "required": true
+                    },
+                    {
+                        "name": "view",
+                        "type": "select",
+                        "label": "View"
+                    },
+                    {
+                        "name": "formula",
+                        "type": "text",
+                        "label": "Formula"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created Time"
+                    },
+                    {
+                        "name": "Idea Semilla",
+                        "type": "text",
+                        "label": "Idea Semilla"
+                    },
+                    {
+                        "name": "Estado",
+                        "type": "text",
+                        "label": "Estado"
+                    },
+                    {
+                        "name": "Borrador",
+                        "type": "text",
+                        "label": "Borrador",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Aprobado",
+                        "type": "boolean",
+                        "label": "Aprobado"
+                    },
+                    {
+                        "name": "Última ejecución",
+                        "type": "date",
+                        "label": "Última ejecución"
+                    },
+                    {
+                        "name": "Historial de revisiones",
+                        "type": "text",
+                        "label": "Historial de revisiones",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Fecha de aprobación",
+                        "time": true,
+                        "type": "date",
+                        "label": "Fecha de aprobación"
+                    },
+                    {
+                        "name": "Notas de publicación",
+                        "type": "text",
+                        "label": "Notas de publicación",
+                        "multiline": true
+                    },
+                    {
+                        "name": "Responsable de revisión",
+                        "spec": [
+                            {
+                                "name": "id",
+                                "type": "text",
+                                "label": "ID"
+                            },
+                            {
+                                "name": "email",
+                                "type": "email",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Name"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Responsable de revisión"
+                    },
+                    {
+                        "name": "Última modificación",
+                        "type": "date",
+                        "label": "Última modificación"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 7,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": -43,
+                    "y": 150,
+                    "name": "¿En que etapa esta?"
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 10,
+                            "module": "google-email:sendAnEmail",
+                            "version": 4,
+                            "parameters": {
+                                "__IMTCONN__": 11315785
+                            },
+                            "filter": {
+                                "name": "Solo los Aprobados",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.Estado}}",
+                                            "o": "text:equal",
+                                            "b": "Aprobado"
+                                        }
+                                    ],
+                                    [
+                                        {
+                                            "a": "{{1.Borrador}}",
+                                            "o": "exist"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "to": [
+                                    "geropastori@gmail.com"
+                                ],
+                                "content": "{{1.Borrador}}",
+                                "subject": "Pieza Aprobada: {{1.`Idea Semilla`}}",
+                                "bodyType": "rawHtml"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 272,
+                                    "y": 148,
+                                    "name": "Notifico la aprobación"
+                                },
+                                "setupValidation": {
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    },
+                                    "version": 1,
+                                    "configuration": "9ff364fc274af12f"
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "cc": {
+                                            "mode": "chose"
+                                        },
+                                        "to": {
+                                            "mode": "chose",
+                                            "items": [
+                                                null
+                                            ]
+                                        },
+                                        "bcc": {
+                                            "mode": "chose"
+                                        },
+                                        "from": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "bodyType": {
+                                            "label": "Raw HTML"
+                                        },
+                                        "attachments": {
+                                            "mode": "chose"
+                                        },
+                                        "emailHeaders": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "google-email"
+                                            },
+                                            "label": "Gero's Gmail connection (geropastori@gmail.com)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:google-email",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "to",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address",
+                                            "required": true,
+                                            "validate": true
+                                        },
+                                        "type": "array",
+                                        "label": "To",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "subject",
+                                        "type": "text",
+                                        "label": "Subject"
+                                    },
+                                    {
+                                        "name": "bodyType",
+                                        "type": "select",
+                                        "label": "Body type",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "rawHtml",
+                                                "collection"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "attachments",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "filename",
+                                                    "type": "filename",
+                                                    "label": "File name",
+                                                    "required": true,
+                                                    "semantic": "file:name"
+                                                },
+                                                {
+                                                    "name": "data",
+                                                    "type": "buffer",
+                                                    "label": "Data",
+                                                    "required": true,
+                                                    "semantic": "file:data"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Attachment"
+                                        },
+                                        "type": "array",
+                                        "label": "Attachments"
+                                    },
+                                    {
+                                        "name": "from",
+                                        "type": "select",
+                                        "label": "From"
+                                    },
+                                    {
+                                        "name": "cc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address"
+                                        },
+                                        "type": "array",
+                                        "label": "CC recipients"
+                                    },
+                                    {
+                                        "name": "bcc",
+                                        "spec": {
+                                            "name": "value",
+                                            "type": "email",
+                                            "label": "Recipient email address"
+                                        },
+                                        "type": "array",
+                                        "label": "BCC recipients"
+                                    },
+                                    {
+                                        "name": "emailHeaders",
+                                        "spec": {
+                                            "name": "value",
+                                            "spec": [
+                                                {
+                                                    "name": "key",
+                                                    "type": "text",
+                                                    "label": "Key",
+                                                    "required": true
+                                                },
+                                                {
+                                                    "name": "value",
+                                                    "type": "text",
+                                                    "label": "Value"
+                                                }
+                                            ],
+                                            "type": "collection",
+                                            "label": "Email header"
+                                        },
+                                        "type": "array",
+                                        "label": "Additional email headers"
+                                    },
+                                    {
+                                        "name": "content",
+                                        "type": "text",
+                                        "label": "Content"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 11,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 11313641
+                            },
+                            "mapper": {
+                                "base": "applR5wde8nycBbLW",
+                                "typecast": false,
+                                "useColumnId": false,
+                                "table": "tblT91ySHZHm7CbI8",
+                                "id": "{{1.id}}",
+                                "record": {
+                                    "fldeyK0w6Hw1XXvn8": "Publicado",
+                                    "fldAAdEiJpQOrysZW": "{{now}}",
+                                    "fld0d8YOSVMzxhQu7": {}
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 639,
+                                    "y": 142,
+                                    "name": "Actualización centro de control"
+                                },
+                                "setupValidation": {
+                                    "version": 1,
+                                    "configuration": "170110b1de61f797",
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    }
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "base": {
+                                            "label": "Centro de Comando"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        },
+                                        "table": {
+                                            "label": "Centro de control"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fldeyK0w6Hw1XXvn8": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldPGSmSeDpeBQv6j": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldAbVvMRl4OoWNy2": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "type": "collection",
+                                        "label": "Record",
+                                        "spec": [
+                                            {
+                                                "name": "fldwyUe3NtYLUzp4i",
+                                                "type": "text",
+                                                "label": "Idea Semilla"
+                                            },
+                                            {
+                                                "name": "fldeyK0w6Hw1XXvn8",
+                                                "type": "select",
+                                                "label": "Estado",
+                                                "mode": "edit"
+                                            },
+                                            {
+                                                "name": "fld4O5nEBdqNA53iJ",
+                                                "type": "text",
+                                                "label": "Borrador"
+                                            },
+                                            {
+                                                "name": "fldPGSmSeDpeBQv6j",
+                                                "type": "boolean",
+                                                "label": "Aprobado"
+                                            },
+                                            {
+                                                "name": "fld9wcfA9rScfo0nR",
+                                                "type": "text",
+                                                "label": "Historial de revisiones"
+                                            },
+                                            {
+                                                "name": "fldAAdEiJpQOrysZW",
+                                                "type": "date",
+                                                "label": "Fecha de aprobación",
+                                                "time": true
+                                            },
+                                            {
+                                                "name": "fldmFBBxCeiBDO0ti",
+                                                "type": "text",
+                                                "label": "Notas de publicación"
+                                            },
+                                            {
+                                                "name": "fld0d8YOSVMzxhQu7",
+                                                "type": "collection",
+                                                "label": "Responsable de revisión",
+                                                "spec": [
+                                                    {
+                                                        "name": "id",
+                                                        "type": "text",
+                                                        "label": "ID"
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "email",
+                                                        "label": "Email"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "fldAbVvMRl4OoWNy2",
+                                                "type": "array",
+                                                "label": "Log de errores",
+                                                "spec": {
+                                                    "type": "text",
+                                                    "label": "Record ID",
+                                                    "name": "value"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created time"
+                                    },
+                                    {
+                                        "name": "Idea Semilla",
+                                        "label": "Idea Semilla",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "label": "Estado",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Borrador",
+                                        "label": "Borrador",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Aprobado",
+                                        "label": "Aprobado",
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "name": "Última ejecución",
+                                        "label": "Última ejecución",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Historial de revisiones",
+                                        "label": "Historial de revisiones",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Fecha de aprobación",
+                                        "label": "Fecha de aprobación",
+                                        "type": "date",
+                                        "time": true
+                                    },
+                                    {
+                                        "name": "Notas de publicación",
+                                        "label": "Notas de publicación",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Responsable de revisión",
+                                        "label": "Responsable de revisión",
+                                        "type": "collection",
+                                        "spec": [
+                                            {
+                                                "name": "id",
+                                                "type": "text",
+                                                "label": "ID"
+                                            },
+                                            {
+                                                "name": "email",
+                                                "type": "email",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Última modificación",
+                                        "label": "Última modificación",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Log de errores",
+                                        "label": "Log de errores",
+                                        "type": "array",
+                                        "spec": {
+                                            "type": "text",
+                                            "label": "Record ID"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 2,
+                            "module": "airtable:ActionSearchRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 11313641
+                            },
+                            "filter": {
+                                "name": "Solo los \"Generando\"",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.Estado}}",
+                                            "o": "text:equal",
+                                            "b": "Generando"
+                                        },
+                                        {
+                                            "a": "{{1.`Idea Semilla`}}",
+                                            "o": "exist"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "base": "applR5wde8nycBbLW",
+                                "table": "tblKtjJGqtudCVqNk",
+                                "maxRecords": "10",
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 279,
+                                    "y": -161,
+                                    "name": "Base de Conocimiento"
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "mode": "chose",
+                                            "label": "Centro de Comando"
+                                        },
+                                        "sort": {
+                                            "mode": "chose"
+                                        },
+                                        "view": {
+                                            "mode": "chose",
+                                            "label": "Empty"
+                                        },
+                                        "table": {
+                                            "mode": "chose",
+                                            "label": "Base RAG"
+                                        },
+                                        "fields": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            },
+                                            "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use Column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "formula",
+                                        "type": "text",
+                                        "label": "Formula"
+                                    },
+                                    {
+                                        "name": "maxRecords",
+                                        "type": "integer",
+                                        "label": "Limit"
+                                    },
+                                    {
+                                        "name": "sort",
+                                        "spec": [
+                                            {
+                                                "name": "field",
+                                                "type": "select",
+                                                "label": "Field",
+                                                "dynamic": true,
+                                                "options": []
+                                            },
+                                            {
+                                                "name": "direction",
+                                                "type": "select",
+                                                "label": "Direction",
+                                                "options": [
+                                                    {
+                                                        "label": "Descending",
+                                                        "value": "desc"
+                                                    },
+                                                    {
+                                                        "label": "Ascending",
+                                                        "value": "asc"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "type": "array",
+                                        "label": "Sort"
+                                    },
+                                    {
+                                        "name": "view",
+                                        "type": "select",
+                                        "label": "View"
+                                    },
+                                    {
+                                        "name": "fields",
+                                        "type": "select",
+                                        "label": "Output Fields",
+                                        "multiple": true
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "__IMTLENGTH__",
+                                        "type": "uinteger",
+                                        "label": "Total number of bundles"
+                                    },
+                                    {
+                                        "name": "__IMTINDEX__",
+                                        "type": "uinteger",
+                                        "label": "Bundle order position"
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created Time"
+                                    },
+                                    {
+                                        "name": "Tema",
+                                        "type": "text",
+                                        "label": "Tema"
+                                    },
+                                    {
+                                        "name": "Contenido Especifico",
+                                        "type": "text",
+                                        "label": "Contenido Especifico"
+                                    },
+                                    {
+                                        "name": "Categoría",
+                                        "type": "text",
+                                        "label": "Categoría",
+                                        "multiline": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "module": "util:TextAggregator",
+                            "version": 1,
+                            "parameters": {
+                                "feeder": 2,
+                                "rowSeparator": ""
+                            },
+                            "mapper": {
+                                "value": "Tema: {{2.Tema}}. {{2.`Contenido Especifico`}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 630,
+                                    "y": -163,
+                                    "name": "Tipifico"
+                                },
+                                "restore": {
+                                    "extra": {
+                                        "feeder": {
+                                            "label": "Airtable - Search Records [2]"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "rowSeparator": {
+                                            "label": "Empty"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "rowSeparator",
+                                        "type": "select",
+                                        "label": "Row separator",
+                                        "validate": {
+                                            "enum": [
+                                                "\n",
+                                                "\t",
+                                                "other"
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "value",
+                                        "type": "text",
+                                        "label": "Text"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "module": "groq:chatCompletion",
+                            "version": 1,
+                            "parameters": {
+                                "__IMTCONN__": 11370547
+                            },
+                            "mapper": {
+                                "model": "openai/gpt-oss-120b",
+                                "messages": [
+                                    {
+                                        "role": "system",
+                                        "content": "Actuá como redactor de contenido para LinkedIn. Usá únicamente la información del bloque CONTEXTO para el tono, el público y los temas; si algo no está ahí, no lo inventes. Pensá paso a paso antes de darme la conclusión: primero elegí el ángulo a partir de la idea semilla, después armá un gancho de una línea, tres párrafos cortos y un cierre con pregunta. Devolvé solo el post, sin comentarios.\n\nCONTEXTO: ({{3.text}})\n"
+                                    },
+                                    {
+                                        "role": "user",
+                                        "content": "IDEA SEMILLA: ({{1.`Idea Semilla`}})"
+                                    }
+                                ],
+                                "max_tokens": "1024",
+                                "response_format": "text"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 963,
+                                    "y": -159,
+                                    "name": "Agente de Guión"
+                                },
+                                "setupValidation": {
+                                    "version": 1,
+                                    "configuration": "4bf614462453c215",
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    }
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Gero's Groq connection",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "groq"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "model": {
+                                            "mode": "chose",
+                                            "label": "openai/gpt-oss-120b"
+                                        },
+                                        "messages": {
+                                            "mode": "chose",
+                                            "items": [
+                                                {
+                                                    "role": {
+                                                        "mode": "chose",
+                                                        "label": "System"
+                                                    }
+                                                },
+                                                {
+                                                    "role": {
+                                                        "mode": "chose",
+                                                        "label": "User"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "response_format": {
+                                            "mode": "chose",
+                                            "label": "Text"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:groq",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "model",
+                                        "type": "select",
+                                        "label": "Model",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "messages",
+                                        "type": "array",
+                                        "label": "Messages",
+                                        "required": true,
+                                        "spec": [
+                                            {
+                                                "name": "role",
+                                                "type": "select",
+                                                "label": "Role",
+                                                "options": [
+                                                    {
+                                                        "label": "System",
+                                                        "value": "system"
+                                                    },
+                                                    {
+                                                        "label": "User",
+                                                        "value": "user"
+                                                    },
+                                                    {
+                                                        "label": "Assistant",
+                                                        "value": "assistant"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "content",
+                                                "type": "text",
+                                                "label": "Content"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "max_tokens",
+                                        "type": "number",
+                                        "label": "Max tokens returned"
+                                    },
+                                    {
+                                        "name": "temperature",
+                                        "type": "number",
+                                        "label": "Temperature"
+                                    },
+                                    {
+                                        "name": "response_format",
+                                        "type": "select",
+                                        "label": "Response Format",
+                                        "validate": {
+                                            "enum": [
+                                                "text",
+                                                "json_object"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "top_p",
+                                        "type": "number",
+                                        "label": "Top P"
+                                    },
+                                    {
+                                        "name": "frequency_penalty",
+                                        "type": "number",
+                                        "label": "Frequency Penalty"
+                                    },
+                                    {
+                                        "name": "seed",
+                                        "type": "number",
+                                        "label": "Seed"
+                                    }
+                                ]
+                            },
+                            "onerror": [
+                                {
+                                    "id": 15,
+                                    "module": "airtable:ActionCreateRecord",
+                                    "version": 3,
+                                    "parameters": {
+                                        "__IMTCONN__": 11313641
+                                    },
+                                    "mapper": {
+                                        "base": "applR5wde8nycBbLW",
+                                        "typecast": false,
+                                        "useColumnId": false,
+                                        "table": "tbltc1rQpoli21LwL",
+                                        "record": {
+                                            "fldtG77ysnBYC6z77": "El agente no realizó el guión",
+                                            "fldI8kMDHthLflzDI": "Agente de guión",
+                                            "fldytL4jqPKwrIrET": "{{4.error.message}}",
+                                            "fldZOUjElsxr7MjTk": "Falla de la IA",
+                                            "fldWUeti05eth602w": [
+                                                "{{1.id}}"
+                                            ]
+                                        }
+                                    },
+                                    "metadata": {
+                                        "designer": {
+                                            "x": 1263,
+                                            "y": -9
+                                        },
+                                        "setupValidation": {
+                                            "version": 1,
+                                            "configuration": "b868cc5a144eab53",
+                                            "result": {
+                                                "valid": true,
+                                                "fields": []
+                                            }
+                                        },
+                                        "restore": {
+                                            "parameters": {
+                                                "__IMTCONN__": {
+                                                    "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)",
+                                                    "data": {
+                                                        "scoped": "true",
+                                                        "connection": "airtable3"
+                                                    }
+                                                }
+                                            },
+                                            "expect": {
+                                                "base": {
+                                                    "label": "Centro de Comando"
+                                                },
+                                                "typecast": {
+                                                    "mode": "chose"
+                                                },
+                                                "useColumnId": {
+                                                    "mode": "chose"
+                                                },
+                                                "table": {
+                                                    "nested": [
+                                                        {
+                                                            "name": "record",
+                                                            "spec": [
+                                                                {
+                                                                    "name": "fldtG77ysnBYC6z77",
+                                                                    "label": "Error",
+                                                                    "type": "text"
+                                                                },
+                                                                {
+                                                                    "name": "fldI8kMDHthLflzDI",
+                                                                    "label": "Módulo",
+                                                                    "type": "text"
+                                                                },
+                                                                {
+                                                                    "name": "fldytL4jqPKwrIrET",
+                                                                    "label": "Mensaje",
+                                                                    "type": "text",
+                                                                    "multiline": true
+                                                                },
+                                                                {
+                                                                    "name": "fldZOUjElsxr7MjTk",
+                                                                    "label": "Tipo",
+                                                                    "type": "select",
+                                                                    "mode": "edit",
+                                                                    "dynamic": true,
+                                                                    "validate": false,
+                                                                    "options": [
+                                                                        {
+                                                                            "label": "Falla de la IA",
+                                                                            "value": "Falla de la IA"
+                                                                        },
+                                                                        {
+                                                                            "label": "Datos faltantes",
+                                                                            "value": "Datos faltantes"
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "name": "fldey01oDM9p1vSTf",
+                                                                    "label": "Resuelto",
+                                                                    "type": "boolean"
+                                                                },
+                                                                {
+                                                                    "name": "fldWUeti05eth602w",
+                                                                    "label": "Pieza",
+                                                                    "type": "array",
+                                                                    "spec": {
+                                                                        "type": "text",
+                                                                        "label": "Record ID"
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "type": "collection",
+                                                            "label": "Record"
+                                                        }
+                                                    ],
+                                                    "label": "Log de errores"
+                                                },
+                                                "record": {
+                                                    "nested": {
+                                                        "fldZOUjElsxr7MjTk": {
+                                                            "mode": "chose",
+                                                            "label": "Falla de la IA"
+                                                        },
+                                                        "fldey01oDM9p1vSTf": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "fldWUeti05eth602w": {
+                                                            "mode": "chose",
+                                                            "items": [
+                                                                null
+                                                            ]
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "parameters": [
+                                            {
+                                                "name": "__IMTCONN__",
+                                                "type": "account:airtable3,airtable2",
+                                                "label": "Connection",
+                                                "required": true
+                                            }
+                                        ],
+                                        "expect": [
+                                            {
+                                                "name": "base",
+                                                "type": "select",
+                                                "label": "Base",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "typecast",
+                                                "type": "boolean",
+                                                "label": "Smart links",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "useColumnId",
+                                                "type": "boolean",
+                                                "label": "Use column ID",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "table",
+                                                "type": "select",
+                                                "label": "Table",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "record",
+                                                "type": "collection",
+                                                "label": "Record",
+                                                "spec": [
+                                                    {
+                                                        "name": "fldtG77ysnBYC6z77",
+                                                        "type": "text",
+                                                        "label": "Error"
+                                                    },
+                                                    {
+                                                        "name": "fldI8kMDHthLflzDI",
+                                                        "type": "text",
+                                                        "label": "Módulo"
+                                                    },
+                                                    {
+                                                        "name": "fldytL4jqPKwrIrET",
+                                                        "type": "text",
+                                                        "label": "Mensaje"
+                                                    },
+                                                    {
+                                                        "name": "fldZOUjElsxr7MjTk",
+                                                        "type": "select",
+                                                        "label": "Tipo",
+                                                        "mode": "edit"
+                                                    },
+                                                    {
+                                                        "name": "fldey01oDM9p1vSTf",
+                                                        "type": "boolean",
+                                                        "label": "Resuelto"
+                                                    },
+                                                    {
+                                                        "name": "fldWUeti05eth602w",
+                                                        "type": "array",
+                                                        "label": "Pieza",
+                                                        "spec": {
+                                                            "type": "text",
+                                                            "label": "Record ID",
+                                                            "name": "value"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "interface": [
+                                            {
+                                                "name": "id",
+                                                "type": "text",
+                                                "label": "ID"
+                                            },
+                                            {
+                                                "name": "createdTime",
+                                                "type": "date",
+                                                "label": "Created time"
+                                            },
+                                            {
+                                                "name": "Error",
+                                                "label": "Error",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "Módulo",
+                                                "label": "Módulo",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "Mensaje",
+                                                "label": "Mensaje",
+                                                "type": "text",
+                                                "multiline": true
+                                            },
+                                            {
+                                                "name": "Tipo",
+                                                "label": "Tipo",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "Resuelto",
+                                                "label": "Resuelto",
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "name": "Fecha",
+                                                "label": "Fecha",
+                                                "type": "date"
+                                            },
+                                            {
+                                                "name": "Pieza",
+                                                "label": "Pieza",
+                                                "type": "array",
+                                                "spec": {
+                                                    "type": "text",
+                                                    "label": "Record ID"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "id": 16,
+                                    "module": "airtable:ActionUpdateRecords",
+                                    "version": 3,
+                                    "parameters": {
+                                        "__IMTCONN__": 11313641
+                                    },
+                                    "mapper": {
+                                        "base": "applR5wde8nycBbLW",
+                                        "typecast": false,
+                                        "useColumnId": false,
+                                        "table": "tblT91ySHZHm7CbI8",
+                                        "id": "{{1.id}}",
+                                        "record": {
+                                            "fldeyK0w6Hw1XXvn8": "Error",
+                                            "fld0d8YOSVMzxhQu7": {}
+                                        }
+                                    },
+                                    "metadata": {
+                                        "designer": {
+                                            "x": 1563,
+                                            "y": -9
+                                        },
+                                        "setupValidation": {
+                                            "version": 1,
+                                            "configuration": "f9c039c2f12192cf",
+                                            "result": {
+                                                "valid": true,
+                                                "fields": []
+                                            }
+                                        },
+                                        "restore": {
+                                            "parameters": {
+                                                "__IMTCONN__": {
+                                                    "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)",
+                                                    "data": {
+                                                        "scoped": "true",
+                                                        "connection": "airtable3"
+                                                    }
+                                                }
+                                            },
+                                            "expect": {
+                                                "base": {
+                                                    "label": "Centro de Comando"
+                                                },
+                                                "typecast": {
+                                                    "mode": "chose"
+                                                },
+                                                "useColumnId": {
+                                                    "mode": "chose"
+                                                },
+                                                "table": {
+                                                    "label": "Centro de control"
+                                                },
+                                                "record": {
+                                                    "nested": {
+                                                        "fldeyK0w6Hw1XXvn8": {
+                                                            "mode": "edit"
+                                                        },
+                                                        "fldPGSmSeDpeBQv6j": {
+                                                            "mode": "chose"
+                                                        },
+                                                        "fldAbVvMRl4OoWNy2": {
+                                                            "mode": "chose"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "parameters": [
+                                            {
+                                                "name": "__IMTCONN__",
+                                                "type": "account:airtable3,airtable2",
+                                                "label": "Connection",
+                                                "required": true
+                                            }
+                                        ],
+                                        "expect": [
+                                            {
+                                                "name": "base",
+                                                "type": "select",
+                                                "label": "Base",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "typecast",
+                                                "type": "boolean",
+                                                "label": "Smart links",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "useColumnId",
+                                                "type": "boolean",
+                                                "label": "Use column ID",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "table",
+                                                "type": "select",
+                                                "label": "Table",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "id",
+                                                "type": "text",
+                                                "label": "Record ID",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "record",
+                                                "type": "collection",
+                                                "label": "Record",
+                                                "spec": [
+                                                    {
+                                                        "name": "fldwyUe3NtYLUzp4i",
+                                                        "type": "text",
+                                                        "label": "Idea Semilla"
+                                                    },
+                                                    {
+                                                        "name": "fldeyK0w6Hw1XXvn8",
+                                                        "type": "select",
+                                                        "label": "Estado",
+                                                        "mode": "edit"
+                                                    },
+                                                    {
+                                                        "name": "fld4O5nEBdqNA53iJ",
+                                                        "type": "text",
+                                                        "label": "Borrador"
+                                                    },
+                                                    {
+                                                        "name": "fldPGSmSeDpeBQv6j",
+                                                        "type": "boolean",
+                                                        "label": "Aprobado"
+                                                    },
+                                                    {
+                                                        "name": "fld9wcfA9rScfo0nR",
+                                                        "type": "text",
+                                                        "label": "Historial de revisiones"
+                                                    },
+                                                    {
+                                                        "name": "fldAAdEiJpQOrysZW",
+                                                        "type": "date",
+                                                        "label": "Fecha de aprobación",
+                                                        "time": true
+                                                    },
+                                                    {
+                                                        "name": "fldmFBBxCeiBDO0ti",
+                                                        "type": "text",
+                                                        "label": "Notas de publicación"
+                                                    },
+                                                    {
+                                                        "name": "fld0d8YOSVMzxhQu7",
+                                                        "type": "collection",
+                                                        "label": "Responsable de revisión",
+                                                        "spec": [
+                                                            {
+                                                                "name": "id",
+                                                                "type": "text",
+                                                                "label": "ID"
+                                                            },
+                                                            {
+                                                                "name": "email",
+                                                                "type": "email",
+                                                                "label": "Email"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "name": "fldAbVvMRl4OoWNy2",
+                                                        "type": "array",
+                                                        "label": "Log de errores",
+                                                        "spec": {
+                                                            "type": "text",
+                                                            "label": "Record ID",
+                                                            "name": "value"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "interface": [
+                                            {
+                                                "name": "id",
+                                                "type": "text",
+                                                "label": "ID"
+                                            },
+                                            {
+                                                "name": "createdTime",
+                                                "type": "date",
+                                                "label": "Created time"
+                                            },
+                                            {
+                                                "name": "Idea Semilla",
+                                                "label": "Idea Semilla",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "Estado",
+                                                "label": "Estado",
+                                                "type": "text"
+                                            },
+                                            {
+                                                "name": "Borrador",
+                                                "label": "Borrador",
+                                                "type": "text",
+                                                "multiline": true
+                                            },
+                                            {
+                                                "name": "Aprobado",
+                                                "label": "Aprobado",
+                                                "type": "boolean"
+                                            },
+                                            {
+                                                "name": "Última ejecución",
+                                                "label": "Última ejecución",
+                                                "type": "date"
+                                            },
+                                            {
+                                                "name": "Historial de revisiones",
+                                                "label": "Historial de revisiones",
+                                                "type": "text",
+                                                "multiline": true
+                                            },
+                                            {
+                                                "name": "Fecha de aprobación",
+                                                "label": "Fecha de aprobación",
+                                                "type": "date",
+                                                "time": true
+                                            },
+                                            {
+                                                "name": "Notas de publicación",
+                                                "label": "Notas de publicación",
+                                                "type": "text",
+                                                "multiline": true
+                                            },
+                                            {
+                                                "name": "Responsable de revisión",
+                                                "label": "Responsable de revisión",
+                                                "type": "collection",
+                                                "spec": [
+                                                    {
+                                                        "name": "id",
+                                                        "type": "text",
+                                                        "label": "ID"
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "email",
+                                                        "label": "Email"
+                                                    },
+                                                    {
+                                                        "name": "name",
+                                                        "type": "text",
+                                                        "label": "Name"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "Última modificación",
+                                                "label": "Última modificación",
+                                                "type": "date"
+                                            },
+                                            {
+                                                "name": "Log de errores",
+                                                "label": "Log de errores",
+                                                "type": "array",
+                                                "spec": {
+                                                    "type": "text",
+                                                    "label": "Record ID"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "id": 17,
+                                    "module": "builtin:Break",
+                                    "version": 1,
+                                    "parameters": {},
+                                    "mapper": {
+                                        "retry": true,
+                                        "count": "3",
+                                        "interval": "5"
+                                    },
+                                    "metadata": {
+                                        "designer": {
+                                            "x": 1863,
+                                            "y": -9
+                                        },
+                                        "setupValidation": {
+                                            "version": 1,
+                                            "configuration": "16a9969966f1f851",
+                                            "result": {
+                                                "valid": true,
+                                                "fields": []
+                                            }
+                                        },
+                                        "restore": {
+                                            "expect": {
+                                                "retry": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        },
+                                        "expect": [
+                                            {
+                                                "name": "retry",
+                                                "type": "boolean",
+                                                "label": "Retry automatically",
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "count",
+                                                "type": "uinteger",
+                                                "label": "Number of retries",
+                                                "validate": {
+                                                    "min": 1,
+                                                    "max": 10000
+                                                },
+                                                "required": true
+                                            },
+                                            {
+                                                "name": "interval",
+                                                "type": "uinteger",
+                                                "label": "Minutes between retries",
+                                                "validate": {
+                                                    "min": 1,
+                                                    "max": 44640
+                                                },
+                                                "required": true
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": 6,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 11313641
+                            },
+                            "mapper": {
+                                "base": "applR5wde8nycBbLW",
+                                "typecast": false,
+                                "useColumnId": false,
+                                "table": "tblT91ySHZHm7CbI8",
+                                "id": "{{1.id}}",
+                                "record": {
+                                    "fldeyK0w6Hw1XXvn8": "En revisión",
+                                    "fld4O5nEBdqNA53iJ": "{{4.result}}",
+                                    "fld9wcfA9rScfo0nR": "Borrador generado por IA, pendiente de aprobación",
+                                    "fld0d8YOSVMzxhQu7": {}
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 1263,
+                                    "y": -309,
+                                    "name": "Actualizacío de la idea y esta \"En revisión\""
+                                },
+                                "setupValidation": {
+                                    "version": 1,
+                                    "configuration": "d418194c84cda80a",
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    }
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "base": {
+                                            "label": "Centro de Comando"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        },
+                                        "table": {
+                                            "label": "Centro de control"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fldeyK0w6Hw1XXvn8": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldPGSmSeDpeBQv6j": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldAbVvMRl4OoWNy2": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "type": "collection",
+                                        "label": "Record",
+                                        "spec": [
+                                            {
+                                                "name": "fldwyUe3NtYLUzp4i",
+                                                "type": "text",
+                                                "label": "Idea Semilla"
+                                            },
+                                            {
+                                                "name": "fldeyK0w6Hw1XXvn8",
+                                                "type": "select",
+                                                "label": "Estado",
+                                                "mode": "edit"
+                                            },
+                                            {
+                                                "name": "fld4O5nEBdqNA53iJ",
+                                                "type": "text",
+                                                "label": "Borrador"
+                                            },
+                                            {
+                                                "name": "fldPGSmSeDpeBQv6j",
+                                                "type": "boolean",
+                                                "label": "Aprobado"
+                                            },
+                                            {
+                                                "name": "fld9wcfA9rScfo0nR",
+                                                "type": "text",
+                                                "label": "Historial de revisiones"
+                                            },
+                                            {
+                                                "name": "fldAAdEiJpQOrysZW",
+                                                "type": "date",
+                                                "label": "Fecha de aprobación",
+                                                "time": true
+                                            },
+                                            {
+                                                "name": "fldmFBBxCeiBDO0ti",
+                                                "type": "text",
+                                                "label": "Notas de publicación"
+                                            },
+                                            {
+                                                "name": "fld0d8YOSVMzxhQu7",
+                                                "type": "collection",
+                                                "label": "Responsable de revisión",
+                                                "spec": [
+                                                    {
+                                                        "name": "id",
+                                                        "type": "text",
+                                                        "label": "ID"
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "email",
+                                                        "label": "Email"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "fldAbVvMRl4OoWNy2",
+                                                "type": "array",
+                                                "label": "Log de errores",
+                                                "spec": {
+                                                    "type": "text",
+                                                    "label": "Record ID",
+                                                    "name": "value"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created time"
+                                    },
+                                    {
+                                        "name": "Idea Semilla",
+                                        "label": "Idea Semilla",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "label": "Estado",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Borrador",
+                                        "label": "Borrador",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Aprobado",
+                                        "label": "Aprobado",
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "name": "Última ejecución",
+                                        "label": "Última ejecución",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Historial de revisiones",
+                                        "label": "Historial de revisiones",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Fecha de aprobación",
+                                        "label": "Fecha de aprobación",
+                                        "type": "date",
+                                        "time": true
+                                    },
+                                    {
+                                        "name": "Notas de publicación",
+                                        "label": "Notas de publicación",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Responsable de revisión",
+                                        "label": "Responsable de revisión",
+                                        "type": "collection",
+                                        "spec": [
+                                            {
+                                                "name": "id",
+                                                "type": "text",
+                                                "label": "ID"
+                                            },
+                                            {
+                                                "name": "email",
+                                                "type": "email",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Última modificación",
+                                        "label": "Última modificación",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Log de errores",
+                                        "label": "Log de errores",
+                                        "type": "array",
+                                        "spec": {
+                                            "type": "text",
+                                            "label": "Record ID"
+                                        }
+                                    },
+                                    {
+                                        "name": "EsError",
+                                        "label": "EsError",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "EsPublicado",
+                                        "label": "EsPublicado",
+                                        "type": "text"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "flow": [
+                        {
+                            "id": 12,
+                            "module": "airtable:ActionCreateRecord",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 11313641
+                            },
+                            "filter": {
+                                "name": "",
+                                "conditions": [
+                                    [
+                                        {
+                                            "a": "{{1.Estado}}",
+                                            "o": "text:equal",
+                                            "b": "Generando"
+                                        },
+                                        {
+                                            "a": "{{1.`Idea Semilla`}}",
+                                            "o": "notexist"
+                                        }
+                                    ]
+                                ]
+                            },
+                            "mapper": {
+                                "base": "applR5wde8nycBbLW",
+                                "typecast": false,
+                                "useColumnId": false,
+                                "table": "tbltc1rQpoli21LwL",
+                                "record": {
+                                    "fldtG77ysnBYC6z77": "Idea semilla vacía",
+                                    "fldI8kMDHthLflzDI": "Router",
+                                    "fldytL4jqPKwrIrET": "La pieza entro en \"Generando\" sin idea semilla",
+                                    "fldZOUjElsxr7MjTk": "Datos faltantes",
+                                    "fldWUeti05eth602w": [
+                                        "{{1.id}}"
+                                    ]
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 270,
+                                    "y": 459
+                                },
+                                "setupValidation": {
+                                    "version": 1,
+                                    "configuration": "dd6ae6f9f8d5c426",
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    }
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "base": {
+                                            "label": "Centro de Comando"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        },
+                                        "table": {
+                                            "nested": [
+                                                {
+                                                    "name": "record",
+                                                    "spec": [
+                                                        {
+                                                            "name": "fldtG77ysnBYC6z77",
+                                                            "label": "Error",
+                                                            "type": "text"
+                                                        },
+                                                        {
+                                                            "name": "fldI8kMDHthLflzDI",
+                                                            "label": "Módulo",
+                                                            "type": "text"
+                                                        },
+                                                        {
+                                                            "name": "fldytL4jqPKwrIrET",
+                                                            "label": "Mensaje",
+                                                            "type": "text",
+                                                            "multiline": true
+                                                        },
+                                                        {
+                                                            "name": "fldZOUjElsxr7MjTk",
+                                                            "label": "Tipo",
+                                                            "type": "select",
+                                                            "mode": "edit",
+                                                            "dynamic": true,
+                                                            "validate": false,
+                                                            "options": [
+                                                                {
+                                                                    "label": "Falla de la IA",
+                                                                    "value": "Falla de la IA"
+                                                                },
+                                                                {
+                                                                    "label": "Datos faltantes",
+                                                                    "value": "Datos faltantes"
+                                                                }
+                                                            ]
+                                                        },
+                                                        {
+                                                            "name": "fldey01oDM9p1vSTf",
+                                                            "label": "Resuelto",
+                                                            "type": "boolean"
+                                                        },
+                                                        {
+                                                            "name": "fldWUeti05eth602w",
+                                                            "label": "Pieza",
+                                                            "type": "array",
+                                                            "spec": {
+                                                                "type": "text",
+                                                                "label": "Record ID"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "type": "collection",
+                                                    "label": "Record"
+                                                }
+                                            ],
+                                            "label": "Log de errores"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fldZOUjElsxr7MjTk": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldey01oDM9p1vSTf": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldWUeti05eth602w": {
+                                                    "mode": "chose",
+                                                    "items": [
+                                                        null
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "type": "collection",
+                                        "label": "Record",
+                                        "spec": [
+                                            {
+                                                "name": "fldtG77ysnBYC6z77",
+                                                "type": "text",
+                                                "label": "Error"
+                                            },
+                                            {
+                                                "name": "fldI8kMDHthLflzDI",
+                                                "type": "text",
+                                                "label": "Módulo"
+                                            },
+                                            {
+                                                "name": "fldytL4jqPKwrIrET",
+                                                "type": "text",
+                                                "label": "Mensaje"
+                                            },
+                                            {
+                                                "name": "fldZOUjElsxr7MjTk",
+                                                "type": "select",
+                                                "label": "Tipo",
+                                                "mode": "edit"
+                                            },
+                                            {
+                                                "name": "fldey01oDM9p1vSTf",
+                                                "type": "boolean",
+                                                "label": "Resuelto"
+                                            },
+                                            {
+                                                "name": "fldWUeti05eth602w",
+                                                "type": "array",
+                                                "label": "Pieza",
+                                                "spec": {
+                                                    "type": "text",
+                                                    "label": "Record ID",
+                                                    "name": "value"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created time"
+                                    },
+                                    {
+                                        "name": "Error",
+                                        "label": "Error",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Módulo",
+                                        "label": "Módulo",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Mensaje",
+                                        "label": "Mensaje",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Tipo",
+                                        "label": "Tipo",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Resuelto",
+                                        "label": "Resuelto",
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "name": "Fecha",
+                                        "label": "Fecha",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Pieza",
+                                        "label": "Pieza",
+                                        "type": "array",
+                                        "spec": {
+                                            "type": "text",
+                                            "label": "Record ID"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 11313641
+                            },
+                            "mapper": {
+                                "base": "applR5wde8nycBbLW",
+                                "typecast": false,
+                                "useColumnId": false,
+                                "table": "tblT91ySHZHm7CbI8",
+                                "id": "{{1.id}}",
+                                "record": {
+                                    "fldeyK0w6Hw1XXvn8": "Error",
+                                    "fld0d8YOSVMzxhQu7": {}
+                                }
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 637,
+                                    "y": 455
+                                },
+                                "setupValidation": {
+                                    "version": 1,
+                                    "configuration": "f9c039c2f12192cf",
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    }
+                                },
+                                "restore": {
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "label": "Gero's Airtable OAuth connection (User ID: usr1oqx0ndCCaaIF3)",
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            }
+                                        }
+                                    },
+                                    "expect": {
+                                        "base": {
+                                            "label": "Centro de Comando"
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        },
+                                        "table": {
+                                            "label": "Centro de control"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fldeyK0w6Hw1XXvn8": {
+                                                    "mode": "edit"
+                                                },
+                                                "fldPGSmSeDpeBQv6j": {
+                                                    "mode": "chose"
+                                                },
+                                                "fldAbVvMRl4OoWNy2": {
+                                                    "mode": "chose"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "type": "collection",
+                                        "label": "Record",
+                                        "spec": [
+                                            {
+                                                "name": "fldwyUe3NtYLUzp4i",
+                                                "type": "text",
+                                                "label": "Idea Semilla"
+                                            },
+                                            {
+                                                "name": "fldeyK0w6Hw1XXvn8",
+                                                "type": "select",
+                                                "label": "Estado",
+                                                "mode": "edit"
+                                            },
+                                            {
+                                                "name": "fld4O5nEBdqNA53iJ",
+                                                "type": "text",
+                                                "label": "Borrador"
+                                            },
+                                            {
+                                                "name": "fldPGSmSeDpeBQv6j",
+                                                "type": "boolean",
+                                                "label": "Aprobado"
+                                            },
+                                            {
+                                                "name": "fld9wcfA9rScfo0nR",
+                                                "type": "text",
+                                                "label": "Historial de revisiones"
+                                            },
+                                            {
+                                                "name": "fldAAdEiJpQOrysZW",
+                                                "type": "date",
+                                                "label": "Fecha de aprobación",
+                                                "time": true
+                                            },
+                                            {
+                                                "name": "fldmFBBxCeiBDO0ti",
+                                                "type": "text",
+                                                "label": "Notas de publicación"
+                                            },
+                                            {
+                                                "name": "fld0d8YOSVMzxhQu7",
+                                                "type": "collection",
+                                                "label": "Responsable de revisión",
+                                                "spec": [
+                                                    {
+                                                        "name": "id",
+                                                        "type": "text",
+                                                        "label": "ID"
+                                                    },
+                                                    {
+                                                        "name": "email",
+                                                        "type": "email",
+                                                        "label": "Email"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "name": "fldAbVvMRl4OoWNy2",
+                                                "type": "array",
+                                                "label": "Log de errores",
+                                                "spec": {
+                                                    "type": "text",
+                                                    "label": "Record ID",
+                                                    "name": "value"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created time"
+                                    },
+                                    {
+                                        "name": "Idea Semilla",
+                                        "label": "Idea Semilla",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "label": "Estado",
+                                        "type": "text"
+                                    },
+                                    {
+                                        "name": "Borrador",
+                                        "label": "Borrador",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Aprobado",
+                                        "label": "Aprobado",
+                                        "type": "boolean"
+                                    },
+                                    {
+                                        "name": "Última ejecución",
+                                        "label": "Última ejecución",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Historial de revisiones",
+                                        "label": "Historial de revisiones",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Fecha de aprobación",
+                                        "label": "Fecha de aprobación",
+                                        "type": "date",
+                                        "time": true
+                                    },
+                                    {
+                                        "name": "Notas de publicación",
+                                        "label": "Notas de publicación",
+                                        "type": "text",
+                                        "multiline": true
+                                    },
+                                    {
+                                        "name": "Responsable de revisión",
+                                        "label": "Responsable de revisión",
+                                        "type": "collection",
+                                        "spec": [
+                                            {
+                                                "name": "id",
+                                                "type": "text",
+                                                "label": "ID"
+                                            },
+                                            {
+                                                "name": "email",
+                                                "type": "email",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "name",
+                                                "type": "text",
+                                                "label": "Name"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "name": "Última modificación",
+                                        "label": "Última modificación",
+                                        "type": "date"
+                                    },
+                                    {
+                                        "name": "Log de errores",
+                                        "label": "Log de errores",
+                                        "type": "array",
+                                        "spec": {
+                                            "type": "text",
+                                            "label": "Record ID"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": false,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": true,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu1.make.com",
+        "notes": []
+    }
+}
