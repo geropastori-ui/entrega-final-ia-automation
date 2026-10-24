@@ -18,7 +18,7 @@ Proyecto integrador de la Especialización en IA Automation (CoderHouse). Automa
 
 - Dashboard público (Shared View, solo lectura): https://airtable.com/applR5wde8nycBbLW/shr4RLhPLx0Q3k2Ty
 - Log de errores (Shared View, solo lectura): https://airtable.com/applR5wde8nycBbLW/shrHYyKaKqiYGUZ6E
-- Video de demostración: _pendiente de agregar_
+- Video de demostración: https://youtu.be/zLYiKG6jYSU
 
 ## Cómo funciona
 
