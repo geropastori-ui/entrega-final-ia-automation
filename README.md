@@ -7,10 +7,10 @@ Proyecto integrador de la Especialización en IA Automation (CoderHouse). Automa
 | Archivo | Qué es |
 |---|---|
 | `01_Diagrama_de_arquitectura.pdf` | Mapa de arquitectura: disparador, router, APIs, nodo de IA, rutas de error y destino. |
-| `docs/02_Arquitectura.pdf` | Descripción de componentes, rutas, control de bucles y pruebas. |
-| `docs/03_Manual_de_datos.pdf` | Esquema de tablas vinculadas y esquemas JSON entre módulos. |
-| `docs/04_Matriz_de_costos.pdf` | Decisión de modelo, precios vigentes, Batch (-50 %) y caché. |
-| `docs/05_Seguridad_y_resiliencia.pdf` | Credenciales, privacidad, revisión humana y manejo de errores. |
+| `02_Arquitectura.pdf` | Descripción de componentes, rutas, control de bucles y pruebas. |
+| `03_Manual_de_datos.pdf` | Esquema de tablas vinculadas y esquemas JSON entre módulos. |
+| `04_Matriz_de_costos.pdf` | Decisión de modelo, precios vigentes, Batch (-50 %) y caché. |
+| `05_Seguridad_y_resiliencia.pdf` | Credenciales, privacidad, revisión humana y manejo de errores. |
 | `Entrega_Final_PASTORI.blueprint.json` | Blueprint exportado del escenario de Make. No contiene claves. |
 | `screenshots/` | Capturas: escenario de Make, historial de ejecuciones, falla de IA con ejecución incompleta, Log de errores y tabla Centro de control. |
 
@@ -36,7 +36,7 @@ Se usó **Groq** (openai/gpt-oss-120b) por recomendación de los docentes y porq
 
 ## Cómo reproducirlo
 
-1. Crear en Airtable la base con las tablas descritas en `docs/03_Manual_de_datos.pdf`.
+1. Crear en Airtable la base con las tablas descritas en `03_Manual_de_datos.pdf`.
 2. En Make, importar `Entrega_Final_PASTORI.blueprint.json` (Create scenario > Import blueprint) y volver a conectar Airtable, Groq y Gmail con tus propias credenciales.
 3. Ajustar los IDs de base y tabla si cambian, y probar con una idea semilla.
 
